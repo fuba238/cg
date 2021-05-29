@@ -29,19 +29,23 @@
     var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
   
 //球
-var sphereGeometry1 = new THREE.SphereGeometry( 1.0, 32, 32); 
+var sphereGeometry_main = new THREE.SphereGeometry( 1.0, 32, 32); 
 //半径、垂直方向の分割数、水平方向の分割数
-var sphereMaterial1 = new THREE. MeshPhongMaterial( {color: 0x0013ff} );
-var sphere1 = new THREE.Mesh( sphereGeometry1, sphereMaterial1 );
+var sphereMaterial_main = new THREE. MeshPhongMaterial( {color: 0x0013ff} );
+var sphere1 = new THREE.Mesh( sphereGeometry_main, sphereMaterial_main);
 sphere1.position.set( 0, 0, -5 );
 scene.add( sphere1 );
 
-var sphereGeometry2 = new THREE.SphereGeometry( 0.1, 32, 32); 
+var sphereGeometry_sun = new THREE.SphereGeometry( 0.1, 32, 32); 
 //半径、垂直方向の分割数、水平方向の分割数
-var sphereMaterial2 = new THREE. MeshPhongMaterial( {color: 0xff0000} );
-var sphere2 = new THREE.Mesh( sphereGeometry2, sphereMaterial2 );
+var sphereMaterial_sun = new THREE. MeshPhongMaterial( {color: 0xff0000} );
+var sphere2 = new THREE.Mesh( sphereGeometry_sun, sphereMaterial_sun );
+var sphere3 = new THREE.Mesh( sphereGeometry_sun, sphereMaterial_sun );
 sphere2.position.set( 1.5, 1.5, -5 );
+sphere3.position.set( -1.5, -1.2, 2);
 scene.add( sphere2 );
+scene.add( sphere3 );
+    
 
 
 
@@ -52,7 +56,7 @@ scene.add( sphere2 );
     // シーンに追加
     scene.add(directionalLight1);
     // 平行光源2
-        var directionalLight2 = new THREE.DirectionalLight(0xffffff);
+    var directionalLight2 = new THREE.DirectionalLight(0xffffff);
     directionalLight2.position.set(-1, 1, 1);
     // シーンに追加
     scene.add(directionalLight2);
