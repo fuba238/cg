@@ -31,7 +31,7 @@
 //球
 var sphereGeometry_main = new THREE.SphereGeometry( 1.0, 32, 32); 
 //半径、垂直方向の分割数、水平方向の分割数
-var sphereMaterial_main = new THREE. MeshPhongMaterial( {color: 0x0013ff} );
+var sphereMaterial_main = new THREE. MeshPhongMaterial( {color: 0x0000ff} );
 var sphere1 = new THREE.Mesh( sphereGeometry_main, sphereMaterial_main);
 sphere1.position.set( 0, 0, -5 );
 scene.add( sphere1 );
@@ -40,19 +40,22 @@ var sphereGeometry_sun = new THREE.SphereGeometry( 0.1, 32, 32);
 var sphereMaterial_sun = new THREE. MeshPhongMaterial( {color: 0xff0000} );
 var sphere2 = new THREE.Mesh( sphereGeometry_sun, sphereMaterial_sun );
 var sphere3 = new THREE.Mesh( sphereGeometry_sun, sphereMaterial_sun );
-sphere2.position.set( 1.5, 1.5, -5 );
-sphere3.position.set( -1.0, -1.2, 1);
+sphere2.position.set( 1.0, 0.8, -6 );
+sphere3.position.set( -0.4, -0.3, -3.5);
 scene.add( sphere2 );
 scene.add( sphere3 );
     
 var sphereGeometry_shadow = new THREE.SphereGeometry( 0.1, 32, 32); 
-var sphereMaterial_shadow = new THREE. MeshPhongMaterial( {color: 0x0000ff} );
+var sphereMaterial_shadow = new THREE. MeshPhongMaterial( {color: 0x015aff} );
 var sphere4 = new THREE.Mesh( sphereGeometry_shadow, sphereMaterial_shadow );
 var sphere5 = new THREE.Mesh( sphereGeometry_shadow, sphereMaterial_shadow );
-sphere4.position.set( 0, 1.4, -5 );
-sphere5.position.set( 0, -1.4, -6);
+var sphere6 = new THREE.Mesh( sphereGeometry_shadow, sphereMaterial_shadow );
+sphere4.position.set( 0.3, 1.2, -5 );
+sphere5.position.set( -0.2, -1.4, -6);
+sphere6.position.set( -0.8, -0.1, -4);
 scene.add( sphere4 );
 scene.add( sphere5 );
+scene.add( sphere6 );
     
 
 
@@ -74,8 +77,7 @@ scene.add( sphere5 );
       requestAnimationFrame(update);
   
       // 箱を回転させる
-      sphere1.rotation.x += 0.01;
-      sphere1.rotation.y += 0.01;
+      sphere1.sphere1.position.z += 0.0005;
   
       renderer.render(scene, camera);
     };
