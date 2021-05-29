@@ -1,0 +1,13 @@
+・カメラ
+var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+//var camera = new THREE.PerspectiveCamera(視野角，　アスペクト比，　near=区間の開始距離, far=区間の終了距離);
+遠近感が適用されるカメラ
+
+・箱作成
+var geometry = new THREE.BoxGeometry(1, 1, 1);
+//var geometry = new THREE.BoxGeometry(幅，　高さ，　奥行き);
+var material = new THREE.MeshPhongMaterial({ color: 0x0000ff });
+//光沢感がある
+var box = new THREE.Mesh(geometry, material);
+box.position.z = -5;
+scene.add(box);
