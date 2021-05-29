@@ -76,8 +76,8 @@ scene.add( sphere6 );
     var update = function() {
       requestAnimationFrame(update);
   
-      // 箱を回転させる
-      sphere1.sphere1.position.z += 0.0005;
+      // 球を移動させる
+      sphere1.position.z += 0.0005;
   
       renderer.render(scene, camera);
     };
