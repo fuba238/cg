@@ -33,6 +33,10 @@ var textureLoader = new THREE.TextureLoader();
   var texture = textureLoader.load("water.jpg");
   var mat = new THREE.MeshPhongMaterial();
   mat.map = texture;
+    
+  var bump = textureLoader.load("water-bump.jpg");
+  mat.bumpMap = bump;
+  mat.bumpscale = 0.2;
 
   // 箱を作成
   var geometry1 = new THREE.BoxGeometry(1, 1, 1);
