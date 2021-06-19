@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script>
+      // ページの読み込みを待つ
+      window.addEventListener('load', init);
+
+      function init() {
+        // サイズを指定
+        const width = 960;
+        const height = 540;
+
+        // レンダラーを作成
+        const renderer = new THREE.WebGLRenderer({
+          canvas: document.querySelector('#myCanvas')
+        });
+        renderer.setSize(width, height);
+        renderer.setClearColor(0x00ffff);
+
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(0, 0, 1000);
+
+        // カメラコントローラーを作成
+        const controls = new THREE.OrbitControls(camera,document.body);
+
+        // テクスチャー読み込み
+        var textureLoader = new THREE.TextureLoader();  
+        var texture1 = textureLoader.load("bird.jpeg");
+        var mat1 = new THREE.MeshPhongMaterial();
+        mat1.map = texture1;
+
+        var textureLoader = new THREE.TextureLoader();  
+        var texture2 = textureLoader.load("sea.png");
+        var mat2 = new THREE.MeshPhongMaterial();
+        mat2.map = texture2;
+
+        // バンプマップ読み込み
+        var bump = textureLoader.load("bird-bump.png");
+        mat1.bumpMap = bump;
+        mat1.bumpscale = 0.35;
+  
+        // 平行光源1
+        var directionalLight1 = new THREE.DirectionalLight(0xffffff);
+        directionalLight1.position.set(100, 100, 100);
+        // シーンに追加
+        scene.add(directionalLight1);
+        // 平行光源2
+        var directionalLight2 = new THREE.DirectionalLight(0xffffff);
+        directionalLight2.position.set(-100, 100, 100);
+        // シーンに追加
+        scene.add(directionalLight2);
+        // 平行光源3
+        var directionalLight3 = new THREE.DirectionalLight(0xffffff);
+        directionalLight3.position.set(100, -100, -100);
+        // シーンに追加
+        scene.add(directionalLight3);
+
+        //富士山を作成
+        var textureLoader = new THREE.TextureLoader();  
+        var texture0 = textureLoader.load("fuji.png");
+        const material0 = new THREE.SpriteMaterial({ map: texture0,});
+
+        const sprite0 = new THREE.Sprite(material0);
+        sprite0.position.x = 0;
+        sprite0.position.y = 200;
+        sprite0.position.z = -400;
+        sprite0.scale.set(800,800,800);
+        scene.add(sprite0);
+
+        //雲を作成
+        var texture1 = textureLoader.load("cloud1.png");
+        const material1 = new THREE.SpriteMaterial({ map: texture1,});
+
+        const sprite1 = new THREE.Sprite(material1);
+        sprite1.position.x = 100;
+        sprite1.position.y = 200;
+        sprite1.position.z = 100;
+        sprite1.scale.set(300,300,300);
+        scene.add(sprite1);
+
+
+
+
+        // 平面を作成
+        var plate = new THREE.CircleGeometry (350, 100);
+        var sea = new THREE.Mesh(plate, mat2);
+        sea.rotation.x = -Math.PI/2;
+        sea.position.set(0, 0, 0);
+        scene.add(sea);
+
+        // 頭を作成
+        var head = new THREE.SphereGeometry(35, 32, 32)
+        var bird_head = new THREE.Mesh(head, mat1);
+        bird_head.position.set(-100, 180, 0);
+        scene.add(bird_head);
+
+        // 体を作成
+        var body = new THREE.SphereGeometry(70, 32, 32);
+        var bird_body = new THREE.Mesh(body, mat1);
+        bird_body.position.set(0, 30, 0);
+        bird_body.scale.x = 1.8;
+        scene.add(bird_body);
+
+        //　羽を作成
+        var wing = new THREE.SphereGeometry(50, 32, 32);
+        var bird_wing1 = new THREE.Mesh(wing, mat1);
+        bird_wing1.scale.x = 1.9;
+        bird_wing1.scale.y = 0.7;
+        bird_wing1.position.set(0, 30, 35);
+        scene.add(bird_wing1);
+        var bird_wing2 = new THREE.Mesh(wing, mat1);
+        bird_wing2.scale.x = 1.9;
+        bird_wing2.scale.y = 0.7;
+        bird_wing2.position.set(0, 30, -35);
+        scene.add(bird_wing2);
+
+
+        //首を作成
+        var neck = new THREE.CylinderGeometry(10, 25, 200, 100,100);
+        var bird_neck = new THREE.Mesh(neck, mat1);
+        bird_neck.position.set(-90, 100, 0);
+        scene.add(bird_neck);
+
+        //目を作成
+        var eye = new THREE.SphereGeometry(5, 32, 32);
+        var eyeMaterial = new THREE.MeshPhongMaterial({color: 0x000000});
+        var bird_eye1 = new THREE.Mesh(eye, eyeMaterial);
+        bird_eye1.position.set(-120, 200, 15);
+        scene.add(bird_eye1);   
+        var bird_eye2 = new THREE.Mesh(eye, eyeMaterial);
+        bird_eye2.position.set(-120, 200, -15);
+        scene.add(bird_eye2); 
+
+        //くちばしを作成
+        var mouse = new THREE.CylinderGeometry(1, 25, 30);
+        var mouseMaterial = new THREE.MeshPhongMaterial({color: 0xffff00});
+        var bird_mouse = new THREE.Mesh(mouse, mouseMaterial);
+        bird_mouse.position.set(-120, 180, 0);
+        bird_mouse.rotation.y = -Math.PI/2;
+        scene.add(bird_mouse);
+
+
+
+
+        tick();
+
+        // 毎フレーム時に実行されるループイベントです
+        function tick() {
+          // レンダリング
+          renderer.render(scene, camera);
+          requestAnimationFrame(tick);
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
+</html>
